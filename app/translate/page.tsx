@@ -31,6 +31,7 @@ async function TranslatePage() {
     });
 
     const languages = (await response.json())  as TranslationLanguages;
+    //console.log('respose',languages.translation);
 
 
 
@@ -38,7 +39,7 @@ async function TranslatePage() {
     <div>
         <div>
             {/* //translateForm */}
-            <TranslationForm/>
+            <TranslationForm languages={languages} />
         </div>
         {/* //translareHistory */}
         <div>
