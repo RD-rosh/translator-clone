@@ -36,15 +36,14 @@ async function TranslatePage() {
 
 
   return (
-    <div>
-        <div>
+    <div className='px-10 xl:px-0 mb-20'>
+        
             {/* //translateForm */}
             <TranslationForm languages={languages} />
-        </div>
+       
         {/* //translareHistory */}
-        <div>
-            
-    </div>
+        
+       
     </div>
   )
 }
