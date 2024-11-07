@@ -1,7 +1,7 @@
 "use client";
 
 import { TranslationLanguages } from "@/app/translate/page";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useActionState, useEffect, useRef, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "./ui/textarea";
 import e from "express";
-import { useFormState } from "react-dom";
+//import { useActionState } from "react-dom";
 import translate from "@/actions/translate";
 import Image from "next/image";
 import SubmitButton from "./SubmitButton";
@@ -33,7 +33,7 @@ export type State = typeof initialState;
 function TranslationForm({ languages }: { languages: TranslationLanguages }) {
   const [input, setInput] = useState(""); //for input
   const [output, setOutput] = useState(""); //for output
-  const [state, formAction] = useFormState(translate, initialState);
+  const [state, formAction] = useActionState(translate, initialState);
   const submitButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {

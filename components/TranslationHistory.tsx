@@ -1,5 +1,3 @@
-"use client";
-
 import { auth } from "@clerk/nextjs/server";
 import { ITranslation } from "@/mongodb/models/User";
 import { url } from "inspector";

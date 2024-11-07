@@ -11,8 +11,9 @@ async function  deleteTranslation(id:string) {
 
     revalidateTag('translationHistory');
 
-    return{
-        translations : JSON.stringify(user.translations),
+    return {
+        translations : user.translations,
+        //translations : JSON.stringify(user.translations),
     };
 }
 

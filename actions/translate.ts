@@ -26,29 +26,6 @@ async function translate(previousState: State, formData: FormData) {
   };
 
   //request Az AI translator to translate input ttext
-  const fromLanguage =
-    rawFormData.inputLanguage === "auto" ? null : rawFormData.inputLanguage;
-
-  /* const response = await fetch(`${endpoint}/translate?api-version=3.0&from=${fromLanguage}&to=${rawFormData.outputLanguage}`, {
-        method: 'POST',
-        headers: {
-            'Ocp-Apim-Subscription-Key': key!,
-            'Ocp-Apim-Subscription-Region': location!,
-            'Content-Type': 'application/json',
-            'X-ClientTraceId': v4().toString(),
-        },
-        body: JSON.stringify([{
-            text: rawFormData.input,
-        }]),
-    }); 
-
-       // Check if the response is okay and parse the JSON
-       if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
-    }
-
-    const data = await response.json();
-*/
   const response = await axios({
     baseURL: endpoint,
     url: "translate",
@@ -60,13 +37,15 @@ async function translate(previousState: State, formData: FormData) {
       "X-ClientTraceId": v4().toString(),
     },
     params: {
-      "api-version": 3.0,
+      "api-version": '3.0',
       //if auto detection is not given, no value - api gives a language
       from:
         rawFormData.inputLanguage === "auto" ? null : rawFormData.inputLanguage,
       to: rawFormData.outputLanguage,
     },
-    data: [{ text: rawFormData.input }],
+      data: [
+          { text: rawFormData.input }
+      ],
     responseType: "json",
   });
 
@@ -79,9 +58,9 @@ async function translate(previousState: State, formData: FormData) {
   //push to mongoDB
   await connectDB();
 
-  if (rawFormData.inputLanguage == "auto") {
+  if (rawFormData.inputLanguage === "auto") {
     //if inputLang is detected as auto, set AzureTraslate to detect language before pushing to db
-    rawFormData.inputLanguage = data[0].detectLanguage.language;
+    rawFormData.inputLanguage = data[0].detectedLanguage.language;
   }
   try {
     const translation = {
@@ -91,7 +70,9 @@ async function translate(previousState: State, formData: FormData) {
       toText: data[0].translations[0].text,
     };
 
-    addOrUpdateUser(userId, translation);
+      await addOrUpdateUser(userId, translation);
+      console.error("recorded translation to user : ");
+
   } catch (error) {
     console.error("Failed to add translation to user : ", error);
   }
