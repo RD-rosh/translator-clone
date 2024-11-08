@@ -1,16 +1,18 @@
 "use client";
 
 import { MicIcon } from "lucide-react";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useFormStatus } from "react-dom";
+
 export const mimeType = "audio/webm";
 
 function Recorder({ uploadAudio }: { uploadAudio: (blob: Blob) => void }) {
+  const mediaRecorder = useRef<MediaRecorder | null>(null);
+  const { pending } = useFormStatus();
   const [permission, setPermission] = useState(false);
   const [stream, setStream] = useState<MediaStream | null>(null);
-  const mediaRecorder = useRef<MediaRecorder | null>(null);
-  const [audioChunks, setAudioChunks] = useState<Blob[]>([]);
-  const [pending, setPending] = useState(false);
   const [recordingStatus, setRecordingStatus] = useState("inactive");
+  const [audioChunks, setAudioChunks] = useState<Blob[]>([]);
 
   useEffect(() => {
     getMicrophonePermission();
@@ -25,63 +27,71 @@ function Recorder({ uploadAudio }: { uploadAudio: (blob: Blob) => void }) {
         });
         setPermission(true);
         setStream(streamData);
-      } catch (error: any) {
-        alert(error.message);
+      } catch (err: any) {
+        alert(err.message);
       }
     } else {
       alert("Your browser does not support the MediaRecorder API");
     }
   };
 
-  const startRecording = () => {
-    if (!stream || pending) return;
+  const startRecording = async () => {
+    if (stream === null || pending) return;
+
     setRecordingStatus("recording");
 
+    //Create a new media recorder instance using the stream
     const media = new MediaRecorder(stream, { mimeType });
     mediaRecorder.current = media;
-    media.start();
+    mediaRecorder.current.start();
 
-    const localAudioChunks: Blob[] = [];
-    media.ondataavailable = (event) => {
-      if (event.data && event.data.size > 0) {
-        localAudioChunks.push(event.data);
-      }
-    };
+    let localAudioChunks: Blob[] = [];
 
-    media.onstop = () => {
-      const audioBlob = new Blob(localAudioChunks, { type: mimeType });
-      uploadAudio(audioBlob);
-      setAudioChunks([]); // Clear chunks for the next recording
-      setPending(false); // Reset pending state after upload
+    mediaRecorder.current.ondataavailable = (event) => {
+      if (typeof event.data === "undefined") return;
+      if (event.data.size === 0) return;
+
+      localAudioChunks.push(event.data);
     };
 
     setAudioChunks(localAudioChunks);
   };
 
-  const stopRecording = () => {
-    if (mediaRecorder.current && !pending) {
-      setRecordingStatus("inactive");
-      mediaRecorder.current.stop();
-    }
+  const stopRecording = async () => {
+    if (mediaRecorder.current === null || pending) return;
+
+    setRecordingStatus("inactive");
+    mediaRecorder.current.stop();
+    mediaRecorder.current.onstop = () => {
+      const audioBlob = new Blob(audioChunks, { type: mimeType });
+      uploadAudio(audioBlob);
+      setAudioChunks([]);
+    };
   };
 
   return (
     <div
-      className={`flex items-center group text-black-500 cursor-pointer border rounded-md w-fit px-3 py-2 mb-5 ${
+      className={`flex items-center group text-black-500 cursor-pointer border rounded-md w-fit px-3 py-2  mb-5 ${
         recordingStatus === "recording"
           ? "bg-red-500 text-white"
           : "hover:bg-[#E7F0FE]"
       }`}
     >
-      <MicIcon size={20} className="group-hover:underline" />
+      <MicIcon size={20} className="  group-hover:underline" />
 
       {!permission && (
-        <button onClick={getMicrophonePermission}> Get Microphone </button>
+        <button onClick={getMicrophonePermission}>Get Microphone</button>
       )}
 
-      {recordingStatus === "recording" && pending && <p>Recording...</p>}
+      {pending && (
+        <p>
+          {recordingStatus === "recording"
+            ? "Recording..."
+            : "Stopping recording..."}
+        </p>
+      )}
 
-      {recordingStatus === "inactive" && !pending && (
+      {permission && recordingStatus === "inactive" && !pending && (
         <button
           onClick={startRecording}
           className="text-sm font-medium group-hover:underline ml-2 mt-1"
