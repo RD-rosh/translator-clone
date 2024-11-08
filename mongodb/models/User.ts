@@ -1,10 +1,10 @@
 "use server";
 
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Document, ObjectId, Schema } from "mongoose";
 import connectDB from "../db";
 
 export interface ITranslation extends Document {
-  //_id :string;
+  _id :string;
   timestamp: Date;
   fromText: string;
   from: string; //auto

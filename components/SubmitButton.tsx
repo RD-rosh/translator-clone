@@ -11,7 +11,7 @@ function SubmitButton({ disabled }: { disabled: boolean }) {
     <Button
       type="submit"
       disabled={disabled || pending}
-      className=" bg-ble-500 hover:bg-blue-600 w-full lg:w-fit"
+      className=" bg-green-500 hover:bg-green-600 w-full lg:w-fit"
     >
       {pending ? "Translating... " : "Translate"}
     </Button>

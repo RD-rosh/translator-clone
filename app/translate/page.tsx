@@ -31,12 +31,12 @@ async function TranslatePage() {
   );
 
   const languages = (await response.json()) as TranslationLanguages;
-  //console.log('respose',languages.translation);
+  //console.log('response',languages.translation);
 
   return (
     <div className="px-10 xl:px-0 mb-20">
       <TranslationForm languages={languages} />
-      {/* <TranslationHistory /> */}
+       <TranslationHistory /> 
     </div>
   );
 }

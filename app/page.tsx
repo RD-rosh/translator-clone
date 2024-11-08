@@ -12,7 +12,7 @@ export default async function Home() {
         Break the Language Barrier: Translate Instantly, Connect Effortlessly!
       </h1>{" "}
       <Image
-        src="/images/multilingual.jpeg"
+        src="/images/multilingualrmv.png"
         alt="logo"
         width={700}
         height={700}
@@ -20,13 +20,13 @@ export default async function Home() {
       {userId ? (
         <Link
           href="/translate"
-          className="bg-blue-500 hover:bg-blue-600 w-full mt-10 lg:w-fit p-5 rounded-md text-white text-center xursor-pointer"
+          className="bg-green-500 hover:bg-green-600 w-full mt-10 lg:w-fit p-5 rounded-md text-white text-center xursor-pointer"
         >
           Translate Now
         </Link>
       ) : (
         <SignInButton mode="modal">
-          <Button className="bg-blue-500 hover:bg-blue-600 w-full mt-10 lg:w-fit p-5">
+          <Button className="bg-green-500 hover:bg-green-600 w-full mt-10 lg:w-fit p-5">
             Sign In to get Translating
           </Button>
         </SignInButton>

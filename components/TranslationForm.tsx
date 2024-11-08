@@ -95,7 +95,7 @@ function TranslationForm({ languages }: { languages: TranslationLanguages }) {
         {/* textCompontet */}
         <div className="flex items-center group cursor-pointer border rounded-md w-fit mb-5 px-3 py-2 bg-[#e7f0fe]">
           <Image src="/images/r9c.png" alt="logo" width={30} height={30} />
-          <p className="text-sm font-medium text-blue-500 group-hover:underline ml-2 mt-1">
+          <p className="text-sm font-medium text-black-500 group-hover:underline ml-2 mt-1">
             Text
           </p>
         </div>
@@ -107,7 +107,7 @@ function TranslationForm({ languages }: { languages: TranslationLanguages }) {
         <div className="flex flex-col space-y-2 lg:flex-row lg:space-y-0 lg-space-x-2">
           <div className="flex-1 space-y-2 ">
             <Select name="inputLanguage" defaultValue="auto">
-              <SelectTrigger className="w-[280px] border-none text-blue-500 font-bold">
+              <SelectTrigger className="w-[280px] border-none text-green-500 font-bold">
                 <SelectValue placeholder="Select a language" />
               </SelectTrigger>
               <SelectContent>
@@ -141,7 +141,7 @@ function TranslationForm({ languages }: { languages: TranslationLanguages }) {
           <div className="flex-1 space-y-2">
             <div className="flex items-center justify-between">
               <Select name="outputLanguage" defaultValue="si">
-                <SelectTrigger className="w-[280px] border-none text-blue-500 font-bold">
+                <SelectTrigger className="w-[280px] border-none text-green-500 font-bold">
                   <SelectValue placeholder="Select a language" />
                 </SelectTrigger>
                 <SelectContent>
@@ -173,13 +173,13 @@ function TranslationForm({ languages }: { languages: TranslationLanguages }) {
               >
                 <Volume2Icon
                   size={24}
-                  className="text-blue-500 cursor-pointer disabled:cursor-not-allowed"
+                  className="text-green-500 cursor-pointer disabled:cursor-not-allowed"
                 />
               </Button>
             </div>
             <Textarea
               placeholder="Translation will appear here..."
-              className="min-h-32 text-xl bg-gray-50 border-none"
+              className="min-h-32 text-xl  border-none"
               name="output"
               value={output}
               onChange={(e) => setOutput(e.target.value)}
