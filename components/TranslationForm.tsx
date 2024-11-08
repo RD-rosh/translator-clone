@@ -95,7 +95,7 @@ function TranslationForm({ languages }: { languages: TranslationLanguages }) {
         {/* textCompontet */}
         <div className="flex items-center group cursor-pointer border rounded-md w-fit mb-5 px-3 py-2 bg-[#e7f0fe]">
           <Image src="/images/r9c.png" alt="logo" width={30} height={30} />
-          <p className="text-sm font-medium text-black-500 group-hover:underline ml-2 mt-1">
+          <p className="text-sm font-medium text-green-500 group-hover:underline ml-2 mt-1">
             Text
           </p>
         </div>

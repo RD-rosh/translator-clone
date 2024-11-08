@@ -8,7 +8,7 @@ export default async function Home() {
   const { userId } = await auth();
   return (
     <main className="flex flex-col items-center justify-center p-10">
-      <h1 className="text-3xl lg:text-6xl text-center pb-10 mb-5 font-light">
+      <h1 className="green-gradient-text text-3xl lg:text-6xl text-center pb-10 mb-5 font-light">
         Break the Language Barrier: Translate Instantly, Connect Effortlessly!
       </h1>{" "}
       <Image

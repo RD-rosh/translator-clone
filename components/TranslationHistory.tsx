@@ -45,7 +45,7 @@ async function TranslationHistory() {
         {translations.map((translation) => (
           <li
             key={translation._id }
-            className="flex justify-between items-center p-5 hover:bg-gray-50 relative"
+            className="flex justify-between items-center p-5 hover:bg-green-50 hover:text-black relative"
           >
             <div>
               <p className="text-sm mb-5 text-gray-500">

@@ -1,40 +1,4 @@
-import { auth } from "@clerk/nextjs/server";
-import Link from "next/link";
-import React from "react";
-import Image from "next/image";
-import { SignInButton, UserButton } from "@clerk/nextjs";
-
-async function Header() {
-  const { userId } = await auth();
-  return (
-    <header className="flex items-center justify-between px-8 border-b mb-5">
-      <div className="flex items-center overflow-hidden h-20">
-        <Link href="/">
-          <Image
-            src="/images/translatorlogo.png"
-            alt="logo"
-            width={150}
-            height={75}
-            className="object-contain h-32 cursor-pointer"
-          />
-        </Link>
-      </div>
-
-      {userId ? (
-        <div>
-          <UserButton />
-        </div>
-      ) : (
-        <SignInButton signUpFallbackRedirectUrl={"/translate"} mode="modal" />
-      )}
-    </header>
-  );
-}
-
-export default Header;
-
-
-/* "use client"; 
+"use client"; 
 import { useState, useEffect } from "react";
 import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
@@ -86,7 +50,7 @@ const Header = () => {
 
       <div className="flex items-center space-x-4">
         
-       /*  <button onClick={toggleDarkMode} className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+        <button onClick={toggleDarkMode} className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
           {darkMode ? (
             <span role="img" aria-label="Light Mode">
               <Image
@@ -122,5 +86,42 @@ const Header = () => {
   );
 };
 
-export default Header; */
+export default Header;
  
+
+/* import { auth } from "@clerk/nextjs/server";
+import Link from "next/link";
+import React from "react";
+import Image from "next/image";
+import { SignInButton, UserButton } from "@clerk/nextjs";
+
+async function Header() {
+  const { userId } = await auth();
+  return (
+    <header className="flex items-center justify-between px-8 border-b mb-5">
+      <div className="flex items-center overflow-hidden h-20">
+        <Link href="/">
+          <Image
+            src="/images/translatorlogo.png"
+            alt="logo"
+            width={150}
+            height={75}
+            className="object-contain h-32 cursor-pointer"
+          />
+        </Link>
+      </div>
+
+      {userId ? (
+        <div>
+          <UserButton />
+        </div>
+      ) : (
+        <SignInButton signUpFallbackRedirectUrl={"/translate"} mode="modal" />
+      )}
+    </header>
+  );
+}
+
+export default Header;
+
+ */

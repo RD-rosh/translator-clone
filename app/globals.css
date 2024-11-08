@@ -70,3 +70,23 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.green-gradient-text {
+  background-image: linear-gradient(to right,#40826D, #a7e789,#C70039 , #0f9b0f, #4caf50, #8bc34a); 
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-position: 0 0;
+  background-size: 200% 100%;
+  animation: moveGradient 5s linear infinite;
+}
+
+@keyframes moveGradient {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}

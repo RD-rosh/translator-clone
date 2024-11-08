@@ -71,7 +71,7 @@ function Recorder({ uploadAudio }: { uploadAudio: (blob: Blob) => void }) {
 
   return (
     <div
-      className={`flex items-center group text-black-500 cursor-pointer border rounded-md w-fit px-3 py-2  mb-5 ${
+      className={`flex items-center group bg-[#e7f0fe] text-green-500 cursor-pointer border rounded-md w-fit px-3 py-2  mb-5 ${
         recordingStatus === "recording"
           ? "bg-red-500 text-white"
           : "hover:bg-[#E7F0FE]"
